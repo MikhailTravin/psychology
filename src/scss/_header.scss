@@ -27,6 +27,15 @@
             padding: 10px 0px;
             gap: 20px;
         }
+        .btn {
+            border-radius: 8px;
+            min-height: 50px;
+            font-size: 14px;
+            line-height: 143%;
+            @media (max-width: 768px) {
+                width: 100%;
+            }
+        }
     }
 
     // .header__logo
@@ -86,15 +95,7 @@
         @media (max-width: 550px) {
             height: calc(100dvh - 60px);
         }
-        .btn {
-            border-radius: 8px;
-            min-height: 50px;
-            font-size: 14px;
-            line-height: 143%;
-            @media (max-width: 768px) {
-                width: 100%;
-            }
-        }
+
         ul {
             display: flex;
             justify-content: center;

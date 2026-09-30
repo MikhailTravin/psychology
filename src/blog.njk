@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Блог</title>
+    {% include 'blocks/head.njk' %}
+</head>
+
+<body class="preload mp">
+    <div class="main-wrapper-outer">
+        {% include 'blocks/header.njk' %}
+        <main class="main">
+
+            <div class="block-intro block-intro-other block-intro-blog">
+                <div class="container">
+                    <div class="block-intro__content">
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Главная
+                                    </a>
+                                </li>
+                                <li><span>Блог</span></li>
+                            </ul>
+                        </div>
+                        <div class="block-intro__top">
+                            <div class="block-intro__titles">
+                                <div class="heading-complex">
+                                    <h2 class="title1">
+                                        Статьи о психологии и психическом здоровье
+                                    </h2>
+                                    <p>
+                                        Материалы о психологии, отношениях, психотерапии и психических состояниях.
+                                        Помогаем разобраться в сложных вопросах и понять, когда стоит обратиться к
+                                        специалисту
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="img/image6.webp" alt="" class="block-intro__bg1 bg1-blog">
+            </div>
+
+            {% include 'blocks/seo.njk' %}
+
+        </main>
+        {% include 'blocks/footer.njk' %}
+    </div>
+    {% include 'blocks/scripts.njk' %}
+</body>
+
+</html>

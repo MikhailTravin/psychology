@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Каталог</title>
+    {% include 'blocks/head.njk' %}
+</head>
+
+<body class="preload mp">
+    <div class="main-wrapper-outer">
+        {% include 'blocks/header.njk' %}
+        <main class="main">
+
+            <div class="block-intro block-intro-other">
+                <div class="container">
+                    <div class="block-intro__content">
+                        <div class="breadcrumbs">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Главная
+                                    </a>
+                                </li>
+                                <li><span>Специалисты</span></li>
+                            </ul>
+                        </div>
+                        <div class="block-intro__top">
+                            <div class="block-intro__titles">
+                                <div class="heading-complex">
+                                    <h2 class="title1">
+                                        Наши специалисты
+                                    </h2>
+                                    <p>
+                                        Все психологи центра работают по единым стандартам, владеют основными
+                                        направлениями. Если вы сомневаетесь в выборе, администратор поможет подобрать
+                                        специалиста
+                                    </p>
+                                </div>
+                                <a href="./" class="btn">
+                                    <span>Помочь выбрать специалиста</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img src="img/image4.webp" alt="" class="block-intro__bg1 bg1-catalog">
+            </div>
+
+            <div class="block-help3 block3">
+                <div class="container">
+
+                </div>
+            </div>
+
+            {% include 'blocks/seo.njk' %}
+
+        </main>
+        {% include 'blocks/footer.njk' %}
+    </div>
+    {% include 'blocks/scripts.njk' %}
+</body>
+
+</html>
