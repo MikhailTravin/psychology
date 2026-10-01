@@ -236,7 +236,7 @@
                                 </p>
                             </div>
                             <div class="block-selection__bottom">
-                                <a href="./" class="btn btn-border">
+                                <a href="./" data-popup="#call" class="btn btn-border">
                                     <span>Написать администратору</span>
                                 </a>
                                 <p>
@@ -1759,7 +1759,7 @@
                                 <a href="./" class="btn">
                                     <span>Подобрать специалиста</span>
                                 </a>
-                                <a href="./" class="btn btn-border">
+                                <a href="./" data-popup="#call" class="btn btn-border">
                                     <span>Написать администратору</span>
                                 </a>
                             </div>
@@ -1774,6 +1774,7 @@
         </main>
         {% include 'blocks/footer.njk' %}
     </div>
+    {% include 'blocks/popups.njk' %}
     {% include 'blocks/scripts.njk' %}
 </body>
 

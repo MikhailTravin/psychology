@@ -33,6 +33,116 @@
                 </div>
             </div>
 
+            <div class="block-product-card block2">
+                <div class="container">
+                    <div class="block-product-card__content">
+                        <div class="block-product-card__body">
+                            <div class="block-product-top">
+
+                            </div>
+                            <div class="block-product-about">
+                                <img loading="lazy" src="img/image1.webp" alt="" class="block-product-about__pic1">
+                                <div class="block-product-about__body">
+                                    <h2 class="title2">Обо мне</h2>
+                                    <div class="block-product-about__text">
+                                        <p>
+                                            Для меня важно не просто выслушать, а помочь вам лучше понять себя и свои
+                                            реакции. Я работаю бережно и структурно: опираюсь на научные подходы, но при
+                                            этом учитываю уникальность вашей истории.
+                                        </p>
+                                        <p>
+                                            В работе для меня особенно важны честность, уважение и безопасность. Я не
+                                            даю
+                                            готовых советов, а иду рядом, помогая находить решения, опираясь на ваши
+                                            ресурсы
+                                            и ценности
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-problem block-problem-product">
+                                <div class="block-problem__content">
+                                    <div class="heading-complex2">
+                                        <h2 class="title2">
+                                            С какими запросами работаю
+                                        </h2>
+                                    </div>
+                                    <div class="block-problem__body">
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/sos-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Тревога и панические атаки
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/stress-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Стресс и выгорание
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/tick-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Самооценка и уверенность
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/hands-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Отношения и семья
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/head-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Травмы и жизненные кризисы
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/carier-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Карьераи самореализация
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/kitchen-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Пищевое поведение
+                                            </p>
+                                        </div>
+                                        <div class="block-problem__column">
+                                            <div class="block-problem__icon">
+                                                <img loading="lazy" src="img/icons/sos2-violet.svg" alt="">
+                                            </div>
+                                            <p>
+                                                Зависимости и созависимость
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-sticky">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="block-help2 block1">
                 <div class="container">
                     <div class="block-help2__content">
@@ -48,7 +158,7 @@
                                     Свяжитесь с администратором — он уточнит ваш запрос и поможет с выбором
                                 </p>
                             </div>
-                            <a href="./" class="btn btn-small">
+                            <a href="./" data-popup="#call" class="btn btn-small">
                                 <span>Помочь выбрать специалиста</span>
                             </a>
                         </div>
@@ -178,6 +288,7 @@
         </main>
         {% include 'blocks/footer.njk' %}
     </div>
+    {% include 'blocks/popups.njk' %}
     {% include 'blocks/scripts.njk' %}
 </body>
 
