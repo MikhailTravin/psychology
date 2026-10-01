@@ -8951,6 +8951,9 @@ a {
   -webkit-box-shadow: 0 12px 50px 0 rgba(49, 65, 88, 0.1);
           box-shadow: 0 12px 50px 0 rgba(49, 65, 88, 0.1);
 }
+.header._header-scroll .header__logo img.img-color {
+  opacity: 0;
+}
 .menu-open .header {
   background-color: var(--ffffff);
 }
@@ -8989,6 +8992,7 @@ a {
   display: -ms-flexbox;
   display: flex;
   max-width: 270px;
+  position: relative;
   width: 100%;
 }
 @media (max-width: 768px) {
@@ -9002,6 +9006,15 @@ a {
   }
 }
 .header__logo img {
+  width: 100%;
+  height: auto;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+.header__logo img.img-color {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: auto;
 }
