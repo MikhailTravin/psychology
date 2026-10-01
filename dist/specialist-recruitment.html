@@ -7,7 +7,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<link rel="stylesheet" href="css/swiper.min.css" />
-		<link rel="stylesheet" href="css/fancybox.min.css" />
 		<link rel="stylesheet" href="css/styles.css" />
 
 		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -108,7 +107,7 @@
 				<div class="block-quiz">
 					<div class="container">
 						<div class="block-quiz__content">
-							<div class="block-quiz__steps steps active">
+							<div class="block-quiz__steps steps">
 								<div class="block-quiz__top">
 									<div class="block-quiz__title">
 										ШАГ 1 из 2
@@ -117,9 +116,9 @@
 										<span style="width: 50%;"></span>
 									</div>
 								</div>
-								<div class="block-quiz__step step1 active">
+								<div class="block-quiz__step step1">
 									<div class="block-quiz__body">
-										<div class="block-quiz__form step1-content active">
+										<div class="block-quiz__form step1-content">
 											<div class="heading-complex">
 												<h2 class="title2">
 													Что вас беспокоит?
@@ -441,7 +440,7 @@
 								</div>
 								<div class="block-quiz__step step2">
 									<div class="block-quiz__body">
-										<div class="block-quiz__form step1-content active">
+										<div class="block-quiz__form step1-content">
 											<div class="heading-complex">
 												<h2 class="title2">
 													Какой формат консультации для вас удобен?
@@ -579,38 +578,40 @@
 												</button>
 											</div>
 										</div>
-										<div class="block-quiz__form step1-content">
-											<div class="block-quiz-added">
-												<div class="block-quiz-added__body">
-													<div class="block-quiz-added__icon">
-														<img loading="lazy" src="img/icons/sofa.svg" alt="">
-													</div>
-													<div class="block-quiz-added__item">
-														<div class="block-quiz-added__title">
-															Очно в Москве
-														</div>
-														<p>
-															Консультация в кабинете врача
-														</p>
-													</div>
-												</div>
-												<div class="block-quiz-added__text">
-													Психиатр проводит только очный приём в Москве.<br> Точный адрес сообщит
-													администратор после записи
-												</div>
-											</div>
-											<div class="block-quiz__bottom">
-												<button type="button" class="link btn-prev">
-													<svg style="transform: rotate(-180deg);" aria-hidden="true" width="20" height="9">
-														<use xlink:href="img/sprite.svg#arrow1"></use>
-													</svg>
-													<span>Назад</span>
-												</button>
-												<button type="button" class="btn btn-small btn-next">
-													<span>Показать специалистов</span>
-												</button>
-											</div>
-										</div>
+										<!--
+                                    <div class="block-quiz__form step1-content">
+                                        <div class="block-quiz-added">
+                                            <div class="block-quiz-added__body">
+                                                <div class="block-quiz-added__icon">
+                                                    <img loading="lazy" src="img/icons/sofa.svg" alt="">
+                                                </div>
+                                                <div class="block-quiz-added__item">
+                                                    <div class="block-quiz-added__title">
+                                                        Очно в Москве
+                                                    </div>
+                                                    <p>
+                                                        Консультация в кабинете врача
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="block-quiz-added__text">
+                                                Психиатр проводит только очный приём в Москве.<br> Точный адрес сообщит
+                                                администратор после записи
+                                            </div>
+                                        </div>
+                                        <div class="block-quiz__bottom">
+                                            <button type="button" class="link btn-prev">
+                                                <svg style="transform: rotate(-180deg);" aria-hidden="true" width="20"
+                                                    height="9">
+                                                    <use xlink:href="img/sprite.svg#arrow1"></use>
+                                                </svg>
+                                                <span>Назад</span>
+                                            </button>
+                                            <button type="button" class="btn btn-small btn-next">
+                                                <span>Показать специалистов</span>
+                                            </button>
+                                        </div>
+                                    </div>-->
 									</div>
 								</div>
 							</div>
@@ -635,26 +636,28 @@
 									</div>
 								</div>
 							</div>
-							<div class="block-quiz-loading steps">
-								<div class="block-quiz-loading__icon">
-									<div class="block-quiz-loading__circle">
-										<img loading="lazy" src="img/icons/smile-circle.svg" alt="">
-									</div>
-								</div>
-								<div class="block-quiz-loading__item">
-									<div class="block-quiz-loading__titles">
-										<div class="block-quiz-loading__title">
-											Не удалось подобрать специалистов
-										</div>
-										<p>
-											Попробуйте ещё раз. Если проблема повторится, свяжитесь с администратором
-										</p>
-									</div>
-									<a href="./" class="btn btn-small">
-										<span>Попробовать снова</span>
-									</a>
-								</div>
-							</div>
+							<!--Если не удалось загрузить
+                        <div class="block-quiz-loading steps">
+                            <div class="block-quiz-loading__icon">
+                                <div class="block-quiz-loading__circle">
+                                    <img loading="lazy" src="img/icons/smile-circle.svg" alt="">
+                                </div>
+                            </div>
+                            <div class="block-quiz-loading__item">
+                                <div class="block-quiz-loading__titles">
+                                    <div class="block-quiz-loading__title">
+                                        Не удалось подобрать специалистов
+                                    </div>
+                                    <p>
+                                        Попробуйте ещё раз. Если проблема повторится, свяжитесь с администратором
+                                    </p>
+                                </div>
+                                <a href="./" class="btn btn-small">
+                                    <span>Попробовать снова</span>
+                                </a>
+                            </div>
+                        </div>
+                        -->
 							<div class="block-selected-specialists steps">
 								<h2 class="title2">
 									Вам могут подойти эти специалисты
@@ -870,85 +873,86 @@
 									</div>
 								</div>
 							</div>
-							<div class="block-doctor steps">
-								<div class="block-doctor__badge">
-									Возможно, вам стоит обсудить состояние с врачом-психиатром. Администратор поможет
-									уточнить формат обращения
-								</div>
-								<div class="block-doctor__card">
-									<div class="block-doctor__image">
-										<img loading="lazy" src="img/specialists/image6.webp" alt="">
-									</div>
-									<div class="block-doctor__body">
-										<div class="block-doctor__top">
-											<div class="block-doctor__titles">
-												<div class="title1">
-													Игорь Соколов
-												</div>
-												<div class="block-doctor__subtitle">
-													<p>
-														Врач-психиатр
-													</p>
-													<p>
-														Стаж 15 лет
-													</p>
-												</div>
-											</div>
-											<ul>
-												<li>
-													<div class="block-doctor__icon">
-														<svg aria-hidden="true" width="16" height="14">
-															<use xlink:href="img/sprite.svg#check1"></use>
-														</svg>
-													</div>
-													<p>
-														Проводит очный приём в Москве
-													</p>
-												</li>
-												<li>
-													<div class="block-doctor__icon">
-														<svg aria-hidden="true" width="16" height="14">
-															<use xlink:href="img/sprite.svg#check1"></use>
-														</svg>
-													</div>
-													<p>
-														Точный адрес сообщается после записи
-													</p>
-												</li>
-											</ul>
-											<div class="block-doctor__prices">
-												<div class="block-doctor__price">
-													5 000 ₽
-												</div>
-												<div class="block-doctor__time">
-													/ 45 минут
-												</div>
-											</div>
-											<a href="./" data-popup="#call" class="btn">
-												<span>Записаться через администратора</span>
-											</a>
-										</div>
-										<div class="block-doctor__bottom">
-											<a href="./" class="btn btn-border">
-												<div class="btn__icon">
-													<svg aria-hidden="true" width="18" height="18">
-														<use xlink:href="img/sprite.svg#pen"></use>
-													</svg>
-												</div>
-												<span>Изменить ответы</span>
-											</a>
-											<a href="./" class="btn btn-border">
-												<div class="btn__icon">
-													<svg aria-hidden="true" width="20" height="17">
-														<use xlink:href="img/sprite.svg#team2"></use>
-													</svg>
-												</div>
-												<span>Посмотреть всех специалистов</span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
+							<!--Врач один
+                        <div class="block-doctor steps">
+                            <div class="block-doctor__badge">
+                                Возможно, вам стоит обсудить состояние с врачом-психиатром. Администратор поможет
+                                уточнить формат обращения
+                            </div>
+                            <div class="block-doctor__card">
+                                <div class="block-doctor__image">
+                                    <img loading="lazy" src="img/specialists/image6.webp" alt="">
+                                </div>
+                                <div class="block-doctor__body">
+                                    <div class="block-doctor__top">
+                                        <div class="block-doctor__titles">
+                                            <div class="title1">
+                                                Игорь Соколов
+                                            </div>
+                                            <div class="block-doctor__subtitle">
+                                                <p>
+                                                    Врач-психиатр
+                                                </p>
+                                                <p>
+                                                    Стаж 15 лет
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <ul>
+                                            <li>
+                                                <div class="block-doctor__icon">
+                                                    <svg aria-hidden="true" width="16" height="14">
+                                                        <use xlink:href="img/sprite.svg#check1"></use>
+                                                    </svg>
+                                                </div>
+                                                <p>
+                                                    Проводит очный приём в Москве
+                                                </p>
+                                            </li>
+                                            <li>
+                                                <div class="block-doctor__icon">
+                                                    <svg aria-hidden="true" width="16" height="14">
+                                                        <use xlink:href="img/sprite.svg#check1"></use>
+                                                    </svg>
+                                                </div>
+                                                <p>
+                                                    Точный адрес сообщается после записи
+                                                </p>
+                                            </li>
+                                        </ul>
+                                        <div class="block-doctor__prices">
+                                            <div class="block-doctor__price">
+                                                5 000 ₽
+                                            </div>
+                                            <div class="block-doctor__time">
+                                                / 45 минут
+                                            </div>
+                                        </div>
+                                        <a href="./" data-popup="#call" class="btn">
+                                            <span>Записаться через администратора</span>
+                                        </a>
+                                    </div>
+                                    <div class="block-doctor__bottom">
+                                        <a href="./" class="btn btn-border">
+                                            <div class="btn__icon">
+                                                <svg aria-hidden="true" width="18" height="18">
+                                                    <use xlink:href="img/sprite.svg#pen"></use>
+                                                </svg>
+                                            </div>
+                                            <span>Изменить ответы</span>
+                                        </a>
+                                        <a href="./" class="btn btn-border">
+                                            <div class="btn__icon">
+                                                <svg aria-hidden="true" width="20" height="17">
+                                                    <use xlink:href="img/sprite.svg#team2"></use>
+                                                </svg>
+                                            </div>
+                                            <span>Посмотреть всех специалистов</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
 						</div>
 					</div>
 				</div>

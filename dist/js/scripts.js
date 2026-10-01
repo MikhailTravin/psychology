@@ -2070,381 +2070,245 @@ if (filterCards) {
 }
 
 //========================================================================================================================================================
-/*
-if (document.querySelector('.block-teams__slider')) {
-  const teamsSwiper = new Swiper('.block-teams__slider', {
-    observer: true,
-    observeParents: true,
-    slidesPerView: 1,
-    spaceBetween: 10,
-    speed: 400,
-    preloadImages: true,
-    navigation: {
-      prevEl: '.block-teams__arrow-prev',
-      nextEl: '.block-teams__arrow-next',
-    },
-    breakpoints: {
-      450: {
-        slidesPerView: 2,
-        spaceBetween: 10,
-      },
-      800: {
-        slidesPerView: 3,
-        spaceBetween: 20,
-      },
-      1100: {
-        slidesPerView: 4,
-        spaceBetween: 30,
-      },
-    },
-  });
-}
 
-if (document.querySelector('.images-product')) {
-  const thumbsSwiper = new Swiper('.images-product__thumb', {
-    observer: true,
-    observeParents: true,
-    slidesPerView: 2.5,
-    spaceBetween: 10,
-    speed: 400,
-    preloadImages: true,
-    breakpoints: {
-      550: {
-        slidesPerView: 4, spaceBetween: 10,
-      },
-      768: {
-        slidesPerView: 5, spaceBetween: 15,
-      },
-    },
-  });
+function quiz() {
+  const quizEl = document.querySelector('.block-quiz__content');
+  if (!quizEl) return;
 
-  const mainThumbsSwiper = new Swiper('.images-product__slider', {
-    thumbs: {
-      swiper: thumbsSwiper
-    },
-    observer: true,
-    observeParents: true,
-    slidesPerView: 1,
-    spaceBetween: 20,
-    speed: 400,
-    preloadImages: true,
-    navigation: {
-      prevEl: '.images-product__arrow-prev',
-      nextEl: '.images-product__arrow-next',
-    },
-  });
-}
+  const screens = quizEl.querySelectorAll('.steps');
+  const stepsWrap = quizEl.querySelector('.block-quiz__steps');
+  const paginationBar = quizEl.querySelector('.block-quiz__pagination span');
+  const stepTitle = quizEl.querySelector('.block-quiz__title');
 
-//========================================================================================================================================================
+  const stepEls = [...stepsWrap.querySelectorAll('.block-quiz__step')];
+  const TOTAL_STEPS = stepEls.length;
 
+  const stepData = stepEls.map((step) => ({
+    el: step,
+    form: step.querySelector('.block-quiz__form'),
+    info: step.querySelector('.block-quiz-info'),
+  }));
 
+  let currentIndex = 0;
+  const history = [];
 
-//========================================================================================================================================================
+  let headerHeight = 0;
 
-//Спойлер
-function spollers() {
-  const spollersArray = document.querySelectorAll("[data-spollers]");
-  if (spollersArray.length > 0) {
-    const spollersRegular = Array.from(spollersArray).filter((function (item, index, self) {
-      return !item.dataset.spollers.split(",")[0];
-    }));
-    if (spollersRegular.length) initSpollers(spollersRegular);
+  const updateHeaderHeight = () => {
+    const header = document.querySelector('header');
+    headerHeight = header ? header.offsetHeight : 0;
+  };
 
-    spollersArray.forEach(spollersBlock => {
-      const mediaQuery = spollersBlock.dataset.spollers;
-      if (mediaQuery) {
-        const [maxWidth, type] = mediaQuery.split(",");
-        const width = parseInt(maxWidth);
+  window.addEventListener('resize', updateHeaderHeight);
+  updateHeaderHeight();
 
-        if (type === "max" && window.innerWidth <= width) {
-          if (!spollersBlock.classList.contains("_spoller-init")) {
-            initSpollers([spollersBlock]);
-          }
-        } else if (type === "max" && window.innerWidth > width) {
-          if (spollersBlock.classList.contains("_spoller-init")) {
-            spollersBlock.classList.remove("_spoller-init");
-            initSpollerBody(spollersBlock, false);
-            spollersBlock.removeEventListener("click", setSpollerAction);
-          }
-        }
-      }
-    });
+  const show = (el) => el && el.classList.add('active');
+  const hide = (el) => el && el.classList.remove('active');
 
-    function initSpollers(spollersArray, matchMedia = false) {
-      spollersArray.forEach((spollersBlock => {
-        spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
-        if (matchMedia.matches || !matchMedia) {
-          spollersBlock.classList.add("_spoller-init");
-          initSpollerBody(spollersBlock);
-          spollersBlock.addEventListener("click", setSpollerAction);
+  const showScreen = (screen) => {
+    screens.forEach((s) => s.classList.remove('active'));
+    show(screen);
+  };
 
-          initCloseButtons(spollersBlock);
-        } else {
-          spollersBlock.classList.remove("_spoller-init");
-          initSpollerBody(spollersBlock, false);
-          spollersBlock.removeEventListener("click", setSpollerAction);
-        }
-      }));
+  const scrollToQuiz = () => {
+    const extraOffset = 16;
+    const top =
+      quizEl.getBoundingClientRect().top +
+      window.pageYOffset -
+      headerHeight -
+      extraOffset;
+
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  const updateProgress = (stepIndex) => {
+    if (!paginationBar) return;
+    const percent = (stepIndex / TOTAL_STEPS) * 100;
+    paginationBar.style.width = percent + '%';
+  };
+
+  const updateStepTitle = (stepIndex) => {
+    if (!stepTitle) return;
+    stepTitle.textContent = `ШАГ ${stepIndex} из ${TOTAL_STEPS}`;
+  };
+
+  const renderStepForm = (index, pushHistory = true) => {
+    currentIndex = index;
+    const { el, form, info } = stepData[index];
+
+    stepData.forEach((s) => hide(s.el));
+    show(el);
+
+    if (form) show(form);
+    if (info) hide(info);
+
+    updateStepTitle(index + 1);
+    updateProgress(index + 1);
+
+    if (pushHistory) {
+      history.push({ type: 'step-form', stepIndex: index });
     }
 
-    function initSpollerBody(spollersBlock, hideSpollerBody = true) {
-      let spollerTitles = spollersBlock.querySelectorAll("[data-spoller]");
-      if (spollerTitles.length) {
-        spollerTitles = Array.from(spollerTitles).filter((item => item.closest("[data-spollers]") === spollersBlock));
-        spollerTitles.forEach((spollerTitle => {
-          if (hideSpollerBody) {
-            spollerTitle.removeAttribute("tabindex");
-            if (!spollerTitle.classList.contains("_spoller-active")) {
-              if (spollerTitle.nextElementSibling) {
-                spollerTitle.nextElementSibling.hidden = true;
-              }
-            }
-          } else {
-            spollerTitle.setAttribute("tabindex", "-1");
-            if (spollerTitle.nextElementSibling) {
-              spollerTitle.nextElementSibling.hidden = false;
-            }
-          }
-        }));
-      }
+    scrollToQuiz();
+  };
+
+  const renderStepInfo = (index, pushHistory = true) => {
+    currentIndex = index;
+    const { el, form, info } = stepData[index];
+    if (!info) return;
+
+    stepData.forEach((s) => hide(s.el));
+    show(el);
+
+    hide(form);
+    show(info);
+
+    if (pushHistory) {
+      history.push({ type: 'step-info', stepIndex: index });
     }
 
-    function initCloseButtons(spollersBlock) {
-      const closeButtons = spollersBlock.querySelectorAll('.cabinet-orders-spollers__button');
+    scrollToQuiz();
+  };
 
-      closeButtons.forEach(button => {
-        button.removeEventListener('click', closeSpollerHandler);
-        button.addEventListener('click', closeSpollerHandler);
-      });
+  const renderLoading = (pushHistory = true) => {
+    const loading = [...screens].find(
+      (s) => s.classList.contains('block-quiz-loading') && s.querySelector('.progress')
+    );
+    if (!loading) return;
+
+    showScreen(loading);
+
+    if (pushHistory) {
+      history.push({ type: 'loading' });
     }
 
-    function closeSpollerHandler(e) {
+    scrollToQuiz();
+  };
+
+  const renderResult = (pushHistory = true) => {
+    const result = [...screens].find((s) =>
+      s.classList.contains('block-selected-specialists')
+    );
+    if (!result) return;
+
+    showScreen(result);
+
+    if (pushHistory) {
+      history.push({ type: 'result' });
+    }
+
+    scrollToQuiz();
+  };
+
+  const goBack = () => {
+    history.pop();
+
+    const prev = history[history.length - 1];
+    if (!prev) return;
+
+    switch (prev.type) {
+      case 'step-form':
+        renderStepForm(prev.stepIndex, false);
+        break;
+      case 'step-info':
+        renderStepInfo(prev.stepIndex, false);
+        break;
+      case 'loading':
+        renderLoading(false);
+        break;
+      case 'result':
+        renderResult(false);
+        break;
+    }
+  };
+
+  const validateStep = (index) => {
+    const { form } = stepData[index];
+    if (!form) return true;
+
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    if (checkboxes.length === 0) return true;
+
+    return [...checkboxes].some((c) => c.checked);
+  };
+
+  stepsWrap.addEventListener('click', (e) => {
+    const btnNext = e.target.closest('.btn-next');
+    const btnPrev = e.target.closest('.btn-prev');
+
+    if (btnPrev) {
       e.preventDefault();
-      e.stopPropagation();
-
-      const button = e.currentTarget;
-      const spollersBlock = button.closest('[data-spollers]');
-      const spollerItem = button.closest('.cabinet-orders-spollers__item');
-
-      if (spollersBlock && spollerItem) {
-        const spollerTitle = spollerItem.querySelector('[data-spoller]');
-
-        if (spollerTitle && spollerTitle.classList.contains('_spoller-active')) {
-          const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-
-          spollerTitle.classList.remove('_spoller-active');
-          spollerItem.classList.remove('_spoller-active');
-          spollersBlock.classList.remove('_spoller-active');
-
-          const contentBlock = spollerTitle.nextElementSibling;
-          _slideUp(contentBlock, spollerSpeed);
-        }
-      }
+      goBack();
+      return;
     }
 
-    function setSpollerAction(e) {
-      const el = e.target;
-      const spollerTitle = el.closest("[data-spoller]");
-      if (!spollerTitle) return;
+    if (btnNext) {
+      const isInsideInfo = btnNext.closest('.block-quiz-info');
 
-      if (el.closest('a') && !spollerTitle.closest('a')) {
+      if (isInsideInfo) {
+        if (currentIndex < TOTAL_STEPS - 1) {
+          renderStepForm(currentIndex + 1);
+        } else {
+          renderLoading();
+          setTimeout(() => renderResult(), 5000);
+        }
         return;
       }
 
-      const spollerItem = spollerTitle.closest(".spollers__item, .cabinet-orders-spollers__item, .menu-catalog__item, .spollers-questions__item");
-      const spollersBlock = spollerTitle.closest("[data-spollers]");
+      if (!validateStep(currentIndex)) {
+        alert('Выберите хотя бы один вариант');
+        return;
+      }
 
-      if (!spollersBlock) return;
+      const { info } = stepData[currentIndex];
 
-      const oneSpoller = spollersBlock.hasAttribute("data-one-spoller");
-      const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+      if (info) {
+        renderStepInfo(currentIndex);
+        return;
+      }
 
-      if (!spollersBlock.querySelectorAll("._slide").length) {
-        if (oneSpoller && !spollerTitle.classList.contains("_spoller-active")) {
-          hideSpollersBody(spollersBlock);
-        }
-
-        spollerTitle.classList.toggle("_spoller-active");
-        if (spollerItem) spollerItem.classList.toggle("_spoller-active");
-        spollersBlock.classList.toggle("_spoller-active");
-
-        const contentBlock = spollerTitle.nextElementSibling;
-        if (contentBlock) {
-          _slideToggle(contentBlock, spollerSpeed);
-        }
-
-        e.preventDefault();
+      if (currentIndex < TOTAL_STEPS - 1) {
+        renderStepForm(currentIndex + 1);
+      } else {
+        renderLoading();
+        setTimeout(() => renderResult(), 5000);
       }
     }
+  });
 
-    function hideSpollersBody(spollersBlock) {
-      const spollerActiveTitle = spollersBlock.querySelector("[data-spoller]._spoller-active");
-      const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-      if (spollerActiveTitle && !spollersBlock.querySelectorAll("._slide").length) {
-        const spollerItem = spollerActiveTitle.closest(".spollers__item, .cabinet-orders-spollers__item, .menu-catalog__item, .spollers-questions__item");
+  stepData.forEach(({ form }) => {
+    if (!form) return;
+    const checkboxes = [...form.querySelectorAll('input[type="checkbox"]')];
 
-        spollerActiveTitle.classList.remove("_spoller-active");
-        if (spollerItem) spollerItem.classList.remove("_spoller-active");
-        spollersBlock.classList.remove("_spoller-active");
-        _slideUp(spollerActiveTitle.nextElementSibling, spollerSpeed);
-      }
-    }
-
-    const spollersClose = document.querySelectorAll("[data-spoller-close]");
-    if (spollersClose.length) {
-      document.addEventListener("click", (function (e) {
-        const el = e.target;
-        if (!el.closest("[data-spollers]")) {
-          spollersClose.forEach((spollerClose => {
-            const spollersBlock = spollerClose.closest("[data-spollers]");
-            const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-            spollerClose.classList.remove("_spoller-active");
-            spollersBlock.classList.remove("_spoller-active");
-
-            const spollerItem = spollerClose.closest(".spollers__item, .cabinet-orders-spollers__item, .menu-catalog__item, .spollers-questions__item");
-            if (spollerItem) spollerItem.classList.remove("_spoller-active");
-
-            _slideUp(spollerClose.nextElementSibling, spollerSpeed);
-          }));
+    checkboxes.forEach((cb) => {
+      cb.addEventListener('change', () => {
+        if (cb.value === '5' && cb.checked) {
+          checkboxes.forEach((other) => {
+            if (other !== cb) other.checked = false;
+          });
+        } else if (cb.checked) {
+          const none = checkboxes.find((c) => c.value === '5');
+          if (none) none.checked = false;
         }
-      }));
-    }
-  }
-}
-spollers();
-window.addEventListener('resize', function () {
-  spollers();
-});
+      });
+    });
+  });
 
-//========================================================================================================================================================
-
-//Наблюдатель
-class ScrollWatcher {
-  constructor(props) {
-    let defaultConfig = {
-      logging: true,
-    }
-    this.config = Object.assign(defaultConfig, props);
-    this.observer;
-    !document.documentElement.classList.contains('watcher') ? this.scrollWatcherRun() : null;
-  }
-  scrollWatcherUpdate() {
-    this.scrollWatcherRun();
-  }
-  scrollWatcherRun() {
-    document.documentElement.classList.add('watcher');
-    this.scrollWatcherConstructor(document.querySelectorAll('[data-watch]'));
-  }
-  scrollWatcherConstructor(items) {
-    if (items.length) {
-      let uniqParams = uniqArray(Array.from(items).map(function (item) {
-        if (item.dataset.watch === 'navigator' && !item.dataset.watchThreshold) {
-          let valueOfThreshold;
-          if (item.clientHeight > 2) {
-            valueOfThreshold =
-              window.innerHeight / 2 / (item.clientHeight - 1);
-            if (valueOfThreshold > 1) {
-              valueOfThreshold = 1;
-            }
-          } else {
-            valueOfThreshold = 1;
-          }
-          item.setAttribute(
-            'data-watch-threshold',
-            valueOfThreshold.toFixed(2)
-          );
-        }
-        return `${item.dataset.watchRoot ? item.dataset.watchRoot : null}|${item.dataset.watchMargin ? item.dataset.watchMargin : '0px'}|${item.dataset.watchThreshold ? item.dataset.watchThreshold : 0}`;
-      }));
-      uniqParams.forEach(uniqParam => {
-        let uniqParamArray = uniqParam.split('|');
-        let paramsWatch = {
-          root: uniqParamArray[0],
-          margin: uniqParamArray[1],
-          threshold: uniqParamArray[2]
-        }
-        let groupItems = Array.from(items).filter(function (item) {
-          let watchRoot = item.dataset.watchRoot ? item.dataset.watchRoot : null;
-          let watchMargin = item.dataset.watchMargin ? item.dataset.watchMargin : '0px';
-          let watchThreshold = item.dataset.watchThreshold ? item.dataset.watchThreshold : 0;
-          if (
-            String(watchRoot) === paramsWatch.root &&
-            String(watchMargin) === paramsWatch.margin &&
-            String(watchThreshold) === paramsWatch.threshold
-          ) {
-            return item;
-          }
+  quizEl
+    .querySelectorAll('.block-selected-specialists .btn-border')
+    .forEach((btn) => {
+      if (btn.textContent.includes('Изменить ответы')) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          history.length = 0;
+          showScreen(stepsWrap);
+          renderStepForm(0);
         });
-
-        let configWatcher = this.getScrollWatcherConfig(paramsWatch);
-
-        this.scrollWatcherInit(groupItems, configWatcher);
-      });
-    }
-  }
-  getScrollWatcherConfig(paramsWatch) {
-    let configWatcher = {}
-    if (document.querySelector(paramsWatch.root)) {
-      configWatcher.root = document.querySelector(paramsWatch.root);
-    }
-    configWatcher.rootMargin = paramsWatch.margin;
-    if (paramsWatch.margin.indexOf('px') < 0 && paramsWatch.margin.indexOf('%') < 0) {
-      return
-    }
-    if (paramsWatch.threshold === 'prx') {
-      paramsWatch.threshold = [];
-      for (let i = 0; i <= 1.0; i += 0.005) {
-        paramsWatch.threshold.push(i);
       }
-    } else {
-      paramsWatch.threshold = paramsWatch.threshold.split(',');
-    }
-    configWatcher.threshold = paramsWatch.threshold;
+    });
 
-    return configWatcher;
-  }
-  scrollWatcherCreate(configWatcher) {
-    console.log(configWatcher);
-    this.observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        this.scrollWatcherCallback(entry, observer);
-      });
-    }, configWatcher);
-  }
-  scrollWatcherInit(items, configWatcher) {
-    this.scrollWatcherCreate(configWatcher);
-    items.forEach(item => this.observer.observe(item));
-  }
-  scrollWatcherIntersecting(entry, targetElement) {
-    if (entry.isIntersecting) {
-      !targetElement.classList.contains('_watcher-view') ? targetElement.classList.add('_watcher-view') : null;
-    } else {
-      targetElement.classList.contains('_watcher-view') ? targetElement.classList.remove('_watcher-view') : null;
-    }
-  }
-  scrollWatcherOff(targetElement, observer) {
-    observer.unobserve(targetElement);
-  }
-  scrollWatcherCallback(entry, observer) {
-    const targetElement = entry.target;
-    this.scrollWatcherIntersecting(entry, targetElement);
-    targetElement.hasAttribute('data-watch-once') && entry.isIntersecting ? this.scrollWatcherOff(targetElement, observer) : null;
-    document.dispatchEvent(new CustomEvent("watcherCallback", {
-      detail: {
-        entry: entry
-      }
-    }));
-  }
+  showScreen(stepsWrap);
+  renderStepForm(0);
 }
-modules_flsModules.watcher = new ScrollWatcher({});
 
-//========================================================================================================================================================
-
-
-
-//========================================================================================================================================================
-
-Fancybox.bind("[data-fancybox]", {
-  // опции
-});
-*/
+document.addEventListener('DOMContentLoaded', quiz);
